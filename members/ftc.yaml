@@ -1,0 +1,59 @@
+bioguide: ftc
+contact_form:
+  method: post
+  action: ""
+  steps:
+    - visit: "https://ftcpublic.commentworks.com/ftc/contactlensrule/"
+    - find:
+        - selector: form#form1 input[name='CWSingleCommenter1$cwTxtNamePrefix$ctl00']
+    - fill_in:
+        - name: prefix
+          selector: form#form1 input[name='CWSingleCommenter1$cwTxtNamePrefix$ctl00']
+          value: $NAME_FIRST
+          required: false
+        - name: first
+          selector: form#form1 input[name='CWSingleCommenter1$cwTxtFirstName$ctl00']
+          value: $NAME_FIRST
+          required: false
+        - name: last
+          selector: form#form1 input[name='CWSingleCommenter1$cwTxtLastName$ctl00']
+          value: $NAME_LAST
+          required: true
+        - name: organization
+          selector: form#form1 input[name='CWSingleCommenter1$cwTxtCompany$ctl00']
+          value: People for Good # TODO insert real org name
+          required: false
+        - name: address
+          selector: form#form1 input[name='CWSingleCommenter1$cwTxtAddressLine1$ctl00']
+          value: $ADDRESS_STREET
+          required: false
+        - name: city
+          selector: form#form1 input[name='CWSingleCommenter1$cwTxtCity$ctl00']
+          value: $ADDRESS_CITY
+          required: false
+        - name: zip5
+          selector: form#form1 input[name='CWSingleCommenter1$cwTxtPostalCode$ctl00']
+          value: $ADDRESS_ZIP5
+          required: false
+        - name: message
+          selector: form#form1 textarea#txtArea
+          value: $MESSAGE
+          required: true
+    - select:
+        - name: state
+          selector: form#form1 select[name='CWSingleCommenter1$cwTxtState$ctl00']
+          value: $ADDRESS_STATE_FULL
+          required: true
+          options:
+            Alaska: Alaska
+    - click_on:
+        - selector: form#form1 input#btnContinue
+    - find:
+        - selector: form#form1 input#btnSubmit
+    - click_on:
+        - selector: form#form1 input#btnSubmit
+  success:
+    headers:
+      status: 200
+    body:
+      contains: "Please print this page for your records."
