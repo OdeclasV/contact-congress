@@ -1,16 +1,16 @@
-bioguide: xCA_L_Berman
+bioguide: xCA_L_Gloria
 contact_form:
   method: post
   action: ContactPopupSubmit.php
   steps:
-    - visit: "https://lcmspubcontact.lc.ca.gov/PublicLCMS/ContactPopup.php?district=AD24"
+    - visit: "https://lcmspubcontact.lc.ca.gov/PublicLCMS/ContactPopup.php?district=AD78"
     - fill_in:
         - name: txtFirstName
           selector: "#txtFirstName"
           value: $NAME_FIRST
           required: true
           options:
-            blacklist: ".\"&"
+            blacklist: "."
         - name: txtLastName
           selector: "#txtLastName"
           value: $NAME_LAST
@@ -44,4 +44,4 @@ contact_form:
     headers:
       status: 200
     body:
-      contains: "Thank you"
+      contains: "null"
