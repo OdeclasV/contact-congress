@@ -1,0 +1,107 @@
+bioguide: C000880
+contact_form:
+  method: POST
+  action: http://www.crapo.senate.gov/webformActionIAV1.cfm
+  steps:
+    - visit: "http://www.crapo.senate.gov/contact/email.cfm"
+    - find:
+      - selector: div.modal-header button.close
+    - click_on:
+      - selector: div.modal-header button.close
+    - fill_in:
+      - name: firstName
+        selector: "#firstName"
+        value: "$NAME_FIRST"
+        required: true
+      - name: lastName
+        selector: "#lastName"
+        value: "$NAME_LAST"
+        required: true
+      - name: Address1
+        selector: "#Address1"
+        value: "$ADDRESS_STREET"
+        required: true
+      - name: Address2
+        selector: "#Address2"
+        value: "$ADDRESS_STREET_2"
+        required: false
+      - name: city
+        selector: "#city"
+        value: "$ADDRESS_CITY"
+        required: true
+      - name: zip
+        selector: "#zip"
+        value: "$ADDRESS_ZIP5"
+        required: true
+      - name: homePhone
+        selector: "#homePhone"
+        value: "$PHONE"
+        required: false
+      - name: email
+        selector: "#email"
+        value: "$EMAIL"
+        required: true
+      - name: messageSubject
+        selector: "#messageSubject"
+        value: "$SUBJECT"
+        required: true
+      - name: MessageBody
+        selector: ".required[name='MessageBody']"
+        value: "$MESSAGE"
+        required: true
+      - name: captcha
+        captcha_selector: form#thisForm div.control-group img.img-polaroid
+        selector: form#thisForm input#captcha_code
+        value: $CAPTCHA_SOLUTION
+        required: true
+    - select:
+      - name: Prefix
+        selector: ".required[name='Prefix']"
+        value: "$NAME_PREFIX"
+        required: true
+        options:
+          " Mr. ": "Mr."
+          " Mrs. ": "Mrs."
+          " Ms. ": "Ms."
+          " Mr. and Mrs. ": "Mr. and Mrs."
+          " MSgt ": "MSgt"
+          " Dr. ": "Dr."
+          " Reverend ": "Reverend"
+          " Sister ": "Sister"
+          " Pastor ": "Pastor"
+          " The Honorable ": "The Honorable"
+          " Representative ": "Representative"
+          " Senator ": "Senator"
+      - name: Subject
+        selector: "#Subject"
+        value: $TOPIC
+        required: true
+        options:
+          Agriculture: AG
+          "Banking & Credit": BN
+          "Budget & Taxes": BU
+          "Business, Commerce & Labor": CM
+          "Congress, Federal & Postal Employees": CG
+          "Education, Science & Technology": ED
+          Energy: EN
+          "Environment, Nat. Resources & Wildlife": EV
+          "Foreign Affairs, Military & Veterans": FA
+          Health Care: HC
+          "Homeland Security & Immigration": HS
+          "Judiciary & Crime": JU
+          Native Americans: NA
+          Social Safety Net: MD
+          Not Listed/Other: EMAIL
+    - find:
+      - selector: ".btn-primary"
+    - click_on:
+      - value: Submit
+        selector: ".btn-primary"
+    - find:
+        - selector: "h1"
+          value: "Thank you for emailing"
+  success:
+    headers:
+      status: 200
+    body:
+      contains: "Thank you for submitting your comments via my website"
