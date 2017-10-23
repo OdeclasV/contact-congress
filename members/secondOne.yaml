@@ -1,0 +1,48 @@
+bioguide: secondOne
+contact_form:
+  method: post
+  action: ""
+  steps:
+    - visit: "https://www.regulations.gov/comment?D=IRS-2017-0016-0002"
+    - wait:
+      - value: 2
+    - find:
+      - selector: textarea#x-auto-0-input
+    - fill_in:
+        - name: message
+          selector: textarea#x-auto-0-input
+          value: $MESSAGE
+          required: true
+        - name: first
+          selector: input#x-auto-1-input
+          value: $NAME_FIRST
+          required: false
+        - name: last
+          selector: input#x-auto-2-input
+          value: $NAME_LAST
+          required: false
+    - wait:
+        - value: 2
+    - find:
+        - selector: span.inlineBlock button.primary
+    - click_on:
+        - selector: span.inlineBlock button.primary
+    - wait:
+        - value: 2
+    - find:
+        - selector: div.GIY1LSJFRD span.gwt-CheckBox input
+    - click_on:
+        - selector: div.GIY1LSJFRD span.gwt-CheckBox input
+    - wait:
+        - value: 2
+    - find:
+        - selector: div.clearfix button.primary
+    - click_on:
+        - selector: div.clearfix button.primary
+    - wait:
+        - value: 2
+  success:
+    headers:
+      status: 200
+    body:
+      contains: Your Comment Tracking Number
